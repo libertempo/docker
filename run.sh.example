@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Removing old containers"
+docker rm libertempo
+
+echo "Starting container"
+ID=$(docker run -d -t -i \
+    -v {path/de/libertempo/sur/votre/poste}:/var/www/libertempo \
+    --name="libertempo" libertempo)
+echo ${ID}
+docker attach "${ID}"
