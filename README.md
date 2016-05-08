@@ -61,6 +61,7 @@ La plupart du temps, vous n'aurez besoin de rien de plus que :
 * `docker ps [-a]` : pour lister les containers
 * `docker start {monContainer}`
 * `docker attach {monContainer}`
+* `docker stop {monContainer}`
 
 Vous n'aurez plus besoin des scripts `./build` et `./run.sh`, il ne servent qu'au lancement.
 
