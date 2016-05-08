@@ -66,8 +66,8 @@ Vous n'aurez plus besoin des scripts `./build` et `./run.sh`, il ne servent qu'a
 
 
 ## Améliorations
-Comme il est relativement chiant de copier l'IP à chaque fois, vous pouvez modifier le fichier `/etc/hosts` pour associer l'IP avec un nom à vous.
-:warning: Attention cependant : si vous avez d'autres applications dockerisée lancée en parallèle, il se peut que l'IP du serveur de libertempo change. Pensez donc bien à couper les autres (#1 à suivre)
+Comme il est relativement chiant de copier l'IP à chaque fois, vous pouvez modifier le fichier `/etc/hosts` pour associer l'IP avec un nom à vous.  
+:warning: Attention cependant : si vous avez d'autres applications dockerisées lancées en parallèle, il se peut que l'IP du serveur de libertempo change. Pensez donc bien à couper les autres (suivre [cette issue](https://github.com/Prytoegrian/libertempo-docker/issues/1))
 
 Une fois ceci fait, vous pouvez en plus configurer le vhost de docker pour avoir une URL du type : 
 ```
