@@ -14,7 +14,7 @@ Vous avez tout cela, alors c'est parti !
 La première des étapes est la préparation des sources pour créer un docker qui vous soit propre. Nous allons donc dire à docker de faire pointer les sources du site « Libertempo » en dehors de docker (comme un lien symbolique en somme).  
 La véritable localisation des sources de Libertempo se trouvera sur votre poste, de tel sorte que vous puissez travailler sans avoir à entrer dans docker en permanence.
 
-Pour cela, copiez `run.sh.example` vers `run.sh` et modifiez la ligne `{path/de/libertempo/sur/votre/poste}`
+Pour cela, copiez `run.sh.example` vers `run.sh` et modifiez la ligne du nouveau fichier `{path/de/libertempo/sur/votre/poste}`
 
 Chez moi, puisque mes sources de libertempo se trouvent dans `/home/Prytoegrian/tardis/libertempo`, la ligne ressemblera donc à 
 ```bash
@@ -62,12 +62,12 @@ La plupart du temps, vous n'aurez besoin de rien de plus que :
 * `docker start {monContainer}`
 * `docker attach {monContainer}`
 
-Vous n'aurez plus besoin des scripts `./build` et `./run.sh`, il ne servent qu'au lancement
+Vous n'aurez plus besoin des scripts `./build` et `./run.sh`, il ne servent qu'au lancement.
 
 
 ## Améliorations
 Comme il est relativement chiant de copier l'IP à chaque fois, vous pouvez modifier le fichier `/etc/hosts` pour associer l'IP avec un nom à vous.
-:warning Attention cependant : si vous avez d'autres applications dockerisée lancée en parallèle, il se peut que l'IP du serveur de libertempo change. Pensez donc bien à couper les autres (#1 à suivre)
+:warning: Attention cependant : si vous avez d'autres applications dockerisée lancée en parallèle, il se peut que l'IP du serveur de libertempo change. Pensez donc bien à couper les autres (#1 à suivre)
 
 Une fois ceci fait, vous pouvez en plus configurer le vhost de docker pour avoir une URL du type : 
 ```
