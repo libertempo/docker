@@ -2,7 +2,7 @@
 
 Ce readme n'a pas pour objectif de vous apprendre ce qu'est docker, la [doc officielle](https://docs.docker.com/) le fait bien mieux.
 
-Par contre, elle va vous permettre, en moins de 10 minutes (lecture comprise, no joke), d'avoir une instance de libertempo dockerisée. Il faut pour cela quelques prérequis :
+Par contre, il va vous permettre, en moins de 10 minutes (lecture comprise, no joke), d'avoir une instance de libertempo dockerisée. Il faut pour cela quelques prérequis :
 * Docker installé sur votre poste
 * Source de Libertempo sur votre poste
 * Votre poste sous Unix
@@ -54,7 +54,7 @@ IP/libertempo/install
 
 Tadaaa ! Une application libertempo pleinement opérationnelle.
 
-### Cycle de vie habituel
+## Cycle de vie habituel
 Avant toute chose, il est possible que vous souhaitiez sortir de docker. Dans le docker, faites `Ctrl-P Ctrl-Q` et vous voilà dehors. Tout simplement. Docker est toujours lancé, vérifiez votre navigateur, mais vous êtes à présent détaché.
 
 La plupart du temps, vous n'aurez besoin de rien de plus que :
