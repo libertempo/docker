@@ -16,7 +16,7 @@ La véritable localisation des sources de Libertempo se trouvera sur votre poste
 
 Pour cela, copiez `run.sh.example` vers `run.sh` et modifiez la ligne du nouveau fichier `{path/de/libertempo/sur/votre/poste}`
 
-Chez moi, puisque mes sources de libertempo se trouvent dans `/home/Prytoegrian/tardis/libertempo`, la ligne ressemblera donc à 
+Chez moi, puisque mes sources de libertempo se trouvent dans `/home/Prytoegrian/tardis/libertempo`, la ligne ressemblera donc à
 ```bash
     -v /home/Prytoegrian/tardis/libertempo:/var/www/libertempo \
 ```
@@ -28,7 +28,7 @@ Une fois ceci fait, nous pouvons créer l'image de l'application Libertempo dock
 c'est lui qui va initialiser toute l'appli avec ses dépendances.
 
 Il s'agit d'une installation d'un système unix somme toute normale (les lignes ne devraient pas vous surprendre), basée sur les ordres fournis par le fichier `Dockerfile`, un équivalent d'un `makefile`.  
-L'installation terminée, vous pouvez vous assurer de la présence de l'image dans la liste via : 
+L'installation terminée, vous pouvez vous assurer de la présence de l'image dans la liste via :
 ```sh
 docker images
 ```
@@ -41,21 +41,28 @@ Avoir une image c'est bien, mais avoir un container pour travailler, c'est mieux
 ./run.sh
 ```
 
-Et vous voici dans le docker de libertempo, félicitations ! Faites un `ls` pour vous en assurer, vous avez bien les sources du logiciel.  
-Il vous faut maintenant accéder à libertempo depuis un navigateur web. Dans les quelques lignes du terminal, vous devriez avoir un retour comme ceci :
+Voilà, vous venez de créer le container, votre application est fonctionnelle ; pour vous en assurer, tapez :
 ```sh
-apache2: Could not reliably determine the server's fully qualified domain name
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' libertempo
 ```
 
-Cette ligne fait apparaître une IP. Copiez-la simplement dans votre navigateur : 
+Cette IP vous donne l'IP à laquelle répond le docker de l'application. Copiez-la simplement dans votre navigateur :
+
 ```
 IP/libertempo/install
 ```
 
 Tadaaa ! Une application libertempo pleinement opérationnelle.
 
+Bien que non nécessaire à la vie de l'application, vous pourriez vouloir entrer dans le système dockerisé. Pour ce faire, saisissez :
+```
+docker attach libertempo
+```
+
+Et vous voici dans le docker de libertempo, félicitations ! Faites un `ls` pour vous en assurer, vous avez bien les sources du logiciel.  
+
 ## Cycle de vie habituel
-Avant toute chose, il est possible que vous souhaitiez sortir de docker. Dans le docker, faites `Ctrl-P Ctrl-Q` et vous voilà dehors. Tout simplement. Docker est toujours lancé, vérifiez votre navigateur, mais vous êtes à présent détaché.
+Pour sortir du système dockerisé, faites `Ctrl-P Ctrl-Q` et vous voilà dehors. Tout simplement. Docker est toujours lancé, vérifiez votre navigateur, mais vous êtes à présent détaché.
 
 La plupart du temps, vous n'aurez besoin de rien de plus que :
 * `docker ps [-a]` : pour lister les containers
@@ -63,14 +70,14 @@ La plupart du temps, vous n'aurez besoin de rien de plus que :
 * `docker attach {monContainer}`
 * `docker stop {monContainer}`
 
-Vous n'aurez plus besoin des scripts `./build` et `./run.sh`, il ne servent qu'au lancement.
+Vous n'aurez plus besoin des scripts `./build` et `./run.sh`, il ne servent qu'à initier la machinerie de départ.
 
 
 ## Améliorations
 Comme il est relativement chiant de copier l'IP à chaque fois, vous pouvez modifier le fichier `/etc/hosts` pour associer l'IP avec un nom à vous.  
-:warning: Attention cependant : si vous avez d'autres applications dockerisées lancées en parallèle, il se peut que l'IP du serveur de libertempo change. Pensez donc bien à couper les autres (suivre [cette issue](https://github.com/Prytoegrian/libertempo-docker/issues/1))
+:warning: Attention cependant : si vous avez d'autres applications dockerisées lancées en parallèle, il se peut que l'IP du serveur de libertempo change. Pensez donc bien à couper les autres (suivre [cette issue](https://github.com/Prytoegrian/libertempo-docker/issues/1)), de toute façon vu que libertempo mappe les ports vous aurez un message d'erreur.
 
-Une fois ceci fait, vous pouvez en plus configurer le vhost de docker pour avoir une URL du type : 
+Une fois ceci fait, vous pouvez en plus configurer le vhost de docker pour avoir une URL du type :
 ```
 libertempo/install
 ```
