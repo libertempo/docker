@@ -1,5 +1,6 @@
 FROM ubuntu:14.04
 MAINTAINER Prytoegrian <prytoegrian@protonmail.com>
+
 RUN apt-get update && apt-get install -y mysql-client mysql-server vim apache2 libapache2-mod-php5 language-pack-fr php5 php5-mysqlnd php5-dev php5-xdebug
 
 COPY ./config/apache/sites/000-default.conf /etc/apache2/sites-available/
