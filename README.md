@@ -46,10 +46,16 @@ Voilà, vous venez de créer le container, votre application est fonctionnelle ;
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' libertempo
 ```
 
-Cette IP vous donne l'IP à laquelle répond le docker de l'application. Copiez-la simplement dans votre navigateur :
+Cette IP vous donne l'IP à laquelle répond le docker de l'application. Copiez-la cette IP dans le fichier `/etc/hosts` comme suit :
 
 ```
-IP/libertempo/install
+{IP} libertempo
+
+```
+
+Et rendez vous dans :
+```
+libertempo/install
 ```
 
 Tadaaa ! Une application libertempo pleinement opérationnelle.
@@ -74,10 +80,4 @@ Vous n'aurez plus besoin des scripts `./build` et `./run.sh`, il ne servent qu'�
 
 
 ## Améliorations
-Comme il est relativement chiant de copier l'IP à chaque fois, vous pouvez modifier le fichier `/etc/hosts` pour associer l'IP avec un nom à vous.  
-:warning: Attention cependant : si vous avez d'autres applications dockerisées lancées en parallèle, il se peut que l'IP du serveur de libertempo change. Pensez donc bien à couper les autres (suivre [cette issue](https://github.com/Prytoegrian/libertempo-docker/issues/1)), de toute façon vu que libertempo mappe les ports vous aurez un message d'erreur.
-
-Une fois ceci fait, vous pouvez en plus configurer le vhost de docker pour avoir une URL du type :
-```
-libertempo/install
-```
+:warning: Attention : si vous avez d'autres applications dockerisées lancées en parallèle, il se peut que l'IP du serveur de libertempo change. Pensez donc bien à couper les autres (suivre [cette issue](https://github.com/Prytoegrian/libertempo-docker/issues/1)), de toute façon vu que libertempo mappe les ports vous aurez un message d'erreur.
