@@ -7,6 +7,7 @@ COPY ./config/test/atoum /usr/bin/
 RUN mkdir /opt/run
 COPY ./tools/atoum.phar /opt/run/
 COPY ./config/mysql/my.cnf /etc/mysql/
+COPY ./config/php/xdebug.ini /etc/php5/mods-available/
 
 ADD bootstrap.sh /opt/run/
 RUN chmod +x /opt/run/bootstrap.sh
