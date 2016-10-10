@@ -4,9 +4,10 @@ Ce readme n'a pas pour objectif de vous apprendre ce qu'est docker, la [doc offi
 
 Par contre, il va vous permettre, en moins de 10 minutes (lecture comprise, no joke), d'avoir une instance de libertempo dockerisée. Il faut pour cela quelques prérequis :
 * Docker installé sur votre poste
-* Source de Libertempo sur votre poste
+* Source de [Libertempo](https://github.com/wouldsmina/Libertempo) sur votre poste
 * Votre poste sous Unix
 * Source de ce repo sur votre poste
+* Dans certains cas `apparmor` et `cgroup-lite` ([voir ticket](https://github.com/Prytoegrian/libertempo-docker/issues/5))
 
 Vous avez tout cela, alors c'est parti !
 
