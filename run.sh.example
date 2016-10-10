@@ -1,6 +1,11 @@
 #!/bin/bash
-echo "Removing old containers"
-docker rm libertempo
+## Do not try to delete if container doesn't exist
+docker inspect libertempo > /dev/null
+errorCode=$?
+if [[ "${errorCode}" == '0' ]]; then
+    echo "Removing old container"
+    docker rm libertempo
+fi
 
 echo "Starting container"
 ID=$(docker run -d -t -i \

@@ -11,7 +11,7 @@ Par contre, il va vous permettre, en moins de 10 minutes (lecture comprise, no j
 Vous avez tout cela, alors c'est parti !
 
 ## Configuration
-La première des étapes est la préparation des sources pour créer un docker qui vous soit propre. Nous allons donc dire à docker de faire pointer les sources du site « Libertempo » en dehors de docker (comme un lien symbolique en somme).  
+La première des étapes est la préparation des sources pour créer un docker qui vous soit propre. Nous allons donc dire à docker de faire pointer les sources du site « Libertempo » en dehors de docker (comme un lien symbolique en somme).
 La véritable localisation des sources de Libertempo se trouvera sur votre poste, de tel sorte que vous puissez travailler sans avoir à entrer dans docker en permanence.
 
 Pour cela, copiez `run.sh.example` vers `run.sh` et modifiez la ligne du nouveau fichier `{path/de/libertempo/sur/votre/poste}`
@@ -27,7 +27,7 @@ Une fois ceci fait, nous pouvons créer l'image de l'application Libertempo dock
 ```
 c'est lui qui va initialiser toute l'appli avec ses dépendances.
 
-Il s'agit d'une installation d'un système unix somme toute normale (les lignes ne devraient pas vous surprendre), basée sur les ordres fournis par le fichier `Dockerfile`, un équivalent d'un `makefile`.  
+Il s'agit d'une installation d'un système unix somme toute normale (les lignes ne devraient pas vous surprendre), basée sur les ordres fournis par le fichier `Dockerfile`, un équivalent d'un `makefile`.
 L'installation terminée, vous pouvez vous assurer de la présence de l'image dans la liste via :
 ```sh
 docker images
