@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 MAINTAINER Prytoegrian <prytoegrian@protonmail.com>
 
-RUN apt-get update && apt-get install -y mysql-client mysql-server vim apache2 libapache2-mod-php5 language-pack-fr php5 php5-mysql php5-dev php5-xdebug
+RUN apt-get update -qq && apt-get install -y -qq mysql-client mysql-server vim apache2 libapache2-mod-php5 language-pack-fr php5 php5-mysql php5-dev php5-xdebug php5-curl
 RUN a2enmod rewrite
 
 COPY ./config/apache/sites/* /etc/apache2/sites-available/
