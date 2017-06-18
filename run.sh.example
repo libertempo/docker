@@ -14,6 +14,6 @@ ID=$(docker run -d -t -i \
     -p "80:80" \
     --add-host="libertempo:127.0.0.1"\
     --name="libertempo" libertempo)
-echo ${ID}
 docker stop ${ID} > /dev/null
 docker start ${ID} > /dev/null
+echo ${ID}
