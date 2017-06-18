@@ -9,6 +9,7 @@ echo "Starting apache service"
 service apache2 start
 
 chown -R openldap: /etc/ldap
+#chown -R openldap: /opt/run/content.ldif
 
 echo "Starting ldap service"
 service slapd start
