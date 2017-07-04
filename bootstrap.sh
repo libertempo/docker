@@ -12,6 +12,7 @@ chown -R openldap: /etc/ldap
 #chown -R openldap: /opt/run/content.ldif
 
 echo "Starting ldap service"
+ulimit -n 1024 && slapd -d1
 service slapd start
 
 CMD="$(ldapsearch -x -LLL -H ldap:/// -b dc=libertempo dn)"
