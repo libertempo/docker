@@ -1,2 +1,2 @@
 #!/bin/bash
-php /opt/run/atoum.phar $*
+/var/www/libertempo/vendor/bin/atoum $*
