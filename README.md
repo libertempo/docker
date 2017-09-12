@@ -1,5 +1,8 @@
 # Dockerisation de libertempo
 
+[![BCH compliance](https://bettercodehub.com/edge/badge/Libertempo/libertempo-docker?branch=master)](https://bettercodehub.com/)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ae69b553f18f48cfb7e56f79f686ce50)](https://www.codacy.com/app/Libertempo/libertempo-docker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Libertempo/libertempo-docker&amp;utm_campaign=Badge_Grade)
+
 Ce readme n'a pas pour objectif de vous apprendre ce qu'est docker, la [doc officielle](https://docs.docker.com/) le fait bien mieux.
 
 Par contre, il va vous permettre, en moins de 10 minutes (lecture comprise, no joke), d'avoir une instance de libertempo dockerisée. Il faut pour cela quelques prérequis :
