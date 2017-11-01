@@ -82,6 +82,8 @@ La plupart du temps, vous n'aurez besoin de rien de plus que :
 
 Vous n'aurez plus besoin des scripts `./build` et `./run.sh`, il ne servent qu'à initier la machinerie de départ.
 
+## LDAP
+LDAP tourne automatiquement sur le docker, mais ne possède rien de plus que l'utilisateur `admin:admin`. Pour ajouter d'autres utilisateurs, lancez `/opt/run/add_users_ldap.sh`
 
 ## Améliorations
 :warning: Attention : si vous avez d'autres applications dockerisées lancées en parallèle, il se peut que l'IP du serveur de libertempo change. Pensez donc bien à couper les autres (suivre [cette issue](https://github.com/Prytoegrian/libertempo-docker/issues/1)), de toute façon vu que libertempo mappe les ports vous aurez un message d'erreur.
