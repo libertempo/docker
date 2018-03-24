@@ -9,8 +9,8 @@ fi
 
 echo "Starting container"
 ID=$(docker run -d -t -i \
-    -v {path/de/libertempo/sur/votre/poste}:/var/www/libertempo \
-    -v {path/de/libertempo-api/sur/votre/poste}:/var/www/libertempo-api \
+    -v {path/de/libertempo/sur/votre/poste}:/var/www/web \
+    -v {path/de/libertempo-api/sur/votre/poste}:/var/www/api \
     -p "80:80" \
     --add-host="libertempo:127.0.0.1"\
     --name="libertempo" libertempo)

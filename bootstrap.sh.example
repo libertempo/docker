@@ -1,4 +1,9 @@
 #!/bin/bash
+UID="1000"
+GID="1000"
+usermod -u ${UID} www-data
+groupmod -g ${GID} www-data
+
 echo "Starting mysql service"
 service mysql start
 
