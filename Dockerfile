@@ -11,7 +11,7 @@ RUN apt-get update -qq \
 } | debconf-set-selections \
 && apt-get install -y -qq apt-utils mysql-client mysql-server \
 vim apache2 libapache2-mod-php language-pack-fr php php-mysql php-dev php-xdebug php-curl php-mbstring \
-slapd ldap-utils php5-ldap locate
+slapd ldap-utils php-ldap locate
 RUN a2enmod rewrite
 
 COPY ./config/apache/sites/* /etc/apache2/sites-available/
@@ -21,7 +21,7 @@ COPY ./config/test/atoum /usr/bin/
 RUN mkdir /opt/run
 COPY ./tools/* /opt/run/
 COPY ./config/mysql/my.cnf /etc/mysql/
-COPY ./config/php/xdebug.ini /etc/php5/mods-available/
+COPY ./config/php/xdebug.ini /etc/php/mods-available/
 
 ADD bootstrap.sh /opt/run/
 RUN chmod +x /opt/run/bootstrap.sh

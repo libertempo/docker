@@ -1,8 +1,8 @@
 #!/bin/bash
-UID="1000"
-GID="1000"
-usermod -u ${UID} www-data
-groupmod -g ${GID} www-data
+WWW_UID="1000"
+WWW_GID="1000"
+usermod -u ${WWW_UID} www-data
+groupmod -g ${WWW_GID} www-data
 
 echo "Starting mysql service"
 service mysql start
