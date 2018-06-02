@@ -14,7 +14,9 @@ vim apache2 libapache2-mod-php language-pack-fr php php-mysql php-dev php-xdebug
 slapd ldap-utils php-ldap locate
 
 # Utilisateur de travail
-RUN useradd -m libertempo -s /bin/bash
+RUN adduser --disabled-password --gecos '' libertempo && \
+    adduser libertempo sudo && \
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Configuration apache
 COPY ./config/apache/sites/* /etc/apache2/sites-available/
@@ -32,4 +34,6 @@ COPY bootstrap.sh /opt/run/
 RUN chmod +x /opt/run/bootstrap.sh && \
     chmod +x /opt/run/add_users_ldap.sh
 
+USER libertempo
+WORKDIR /var/www
 CMD ["/opt/run/bootstrap.sh"]

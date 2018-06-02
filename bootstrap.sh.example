@@ -4,24 +4,24 @@ usermod -u $(id -u ${I_AM}) libertempo
 groupmod -g $(id -g ${I_AM}) libertempo
 
 echo "Starting mysql service"
-service mysql start
+sudo service mysql start
 
 echo "Starting apache service"
-service apache2 start
+sudo service apache2 start
 
-chown -R openldap: /etc/ldap
+sudo chown -R openldap: /etc/ldap
 #chown -R openldap: /opt/run/content.ldif
 
 echo "Starting ldap service"
 ulimit -n 1024 && slapd -d1
-service slapd start
+sudo service slapd start
 
 CMD="$(ldapsearch -x -LLL -H ldap:/// -b dc=libertempo dn)"
 RETURN_VAL=$?
 if [[ 0 != "${RETURN_VAL}" ]]; then
     echo "Boot ldap server"
 
-    cat <<EOF | debconf-set-selections
+    cat <<EOF | sudo debconf-set-selections
 slapd slapd/internal/generated_adminpw password admin
 slapd slapd/internal/adminpw password admin
 slapd slapd/password2 password admin
@@ -37,9 +37,8 @@ slapd slapd/no_configuration boolean false
 slapd slapd/dump_database select when needed
 EOF
 
-    dpkg-reconfigure -f noninteractive slapd
-    service slapd restart
+    sudo dpkg-reconfigure -f noninteractive slapd
+    sudo service slapd restart
 fi
 
-#/bin/bash
-sudo -u libertempo -i
+/bin/bash
