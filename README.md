@@ -24,11 +24,7 @@ Chez moi, puisque mes sources de libertempo se trouvent dans `/home/Prytoegrian/
 ```bash
     -v /home/Prytoegrian/tardis/libertempo:/var/www/web \
 ```
-De plus, pour bien paramétrer votre système, vous aurez aussi à bien positionner les droits utilisateurs. Pour ce faire, lancez la commande
-```bash
-id
-```
-Cette dernière vous fournit les idenfiants de votre utilisateur. Reportez alors l'UID et le GID dans le fichier `bootstrap.sh.example` de copiez le vers `bootstrap.sh`.
+De plus, pour bien paramétrer votre système, vous aurez aussi à bien positionner les droits utilisateurs. Pour ce faire, copiez `bootstrap.sh.example` vers `bootstrap.sh` et mettez votre identifiant unix à la place de « {whoami} ».
 
 ## Creation de l'image
 Une fois ceci fait, nous pouvons créer l'image de l'application Libertempo dockerisée. Executez donc le fichier d'installation :
@@ -75,7 +71,7 @@ Bien que non nécessaire à la vie de l'application, vous pourriez vouloir entre
 docker attach libertempo
 ```
 
-Et vous voici dans le docker de libertempo, félicitations ! Faites un `ls` pour vous en assurer, vous avez bien les sources du logiciel.  
+Et vous voici dans le docker de libertempo, félicitations ! Faites un `ls` pour vous en assurer, vous avez bien les sources du logiciel.
 
 ## Cycle de vie habituel
 Pour sortir du système dockerisé, faites `Ctrl-P Ctrl-Q` et vous voilà dehors. Tout simplement. Docker est toujours lancé, vérifiez votre navigateur, mais vous êtes à présent détaché.

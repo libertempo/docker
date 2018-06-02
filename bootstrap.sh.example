@@ -1,14 +1,10 @@
 #!/bin/bash
-WWW_UID="1000"
-WWW_GID="1000"
-usermod -u ${WWW_UID} www-data
-groupmod -g ${WWW_GID} www-data
+I_AM="{whoami}"
+usermod -u $(id -u ${I_AM}) libertempo
+groupmod -g $(id -g ${I_AM}) libertempo
 
 echo "Starting mysql service"
 service mysql start
-
-echo "Create DB if not exists"
-echo "CREATE DATABASE IF NOT EXISTS db_conges" | mysql
 
 echo "Starting apache service"
 service apache2 start
@@ -45,4 +41,5 @@ EOF
     service slapd restart
 fi
 
-/bin/bash
+#/bin/bash
+sudo -u libertempo -i
