@@ -24,7 +24,6 @@ Chez moi, puisque mes sources de libertempo se trouvent dans `/home/Prytoegrian/
 ```bash
     -v /home/Prytoegrian/tardis/libertempo:/var/www/web \
 ```
-De plus, pour bien paramétrer votre système, vous aurez aussi à bien positionner les droits utilisateurs. Pour ce faire, copiez `bootstrap.sh.example` vers `bootstrap.sh` et mettez votre identifiant unix à la place de « {whoami} ».
 
 ## Creation de l'image
 Une fois ceci fait, nous pouvons créer l'image de l'application Libertempo dockerisée. Executez donc le fichier d'installation :
@@ -52,7 +51,7 @@ Voilà, vous venez de créer le container, votre application est fonctionnelle ;
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' libertempo
 ```
 
-Cette IP vous donne l'IP à laquelle répond le docker de l'application. Copiez-la cette IP dans le fichier `/etc/hosts` comme suit :
+Cette IP vous donne l'IP à laquelle répond le docker de l'application. Copiez-la cette IP dans le fichier `/etc/hosts` de votre poste comme suit :
 
 ```
 {IP} libertempo
