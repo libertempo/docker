@@ -14,7 +14,7 @@ Par contre, il va vous permettre, en moins de 10 minutes (lecture comprise, no j
 Vous avez tout cela, alors c'est parti !
 
 ## Configuration
-La première des étapes est d'associer une IP à votre application dans le fichier hosts : 
+La première des étapes est d'associer une IP à votre application dans le fichier hosts :
 ```
 # /etc/hosts
 localhost libertempo
@@ -33,17 +33,23 @@ Chez moi, puisque mes sources de libertempo se trouvent dans `/home/Prytoegrian/
 ## Installation de l'application
 Une fois ceci fait, nous pouvons créer l'image de l'application Libertempo dockerisée. Exécutez donc le fichier d'installation :
 ```
-make install
+make build
 ```
-c'est lui qui va initialiser tout le serveur avec ses dépendances.Une fois ce dernier installé, il installera l'appli.
+c'est lui qui va initialiser tout le serveur avec ses dépendances.
 
 Il s'agit d'une installation d'un système unix somme toute normale (les lignes ne devraient pas vous surprendre), basée sur les ordres fournis par le fichier `Dockerfile`, un équivalent d'un `makefile`.
+
+Enfin, la dernière étape :
+```
+make install
+```
+(*Le serveur MySQL est un peu capricieux à démarrer. Si l'opération échoue, recommencez*)
 
 Tadaaa ! Une application libertempo pleinement opérationnelle. Vous pouvez vous en assurer en vous rendant sur `http://libertempo/`.
 
 ## Coupure et démarrage de l'application
 
-Une fois l'application installée, son cycle de vie normale se résume en 
+Une fois l'application installée, son cycle de vie normale se résume en
 ```
 make start
 ```
@@ -63,5 +69,8 @@ make attach
 Pour sortir du système dockerisé, faites `Ctrl-P Ctrl-Q` et vous voilà dehors. Tout simplement. Docker est toujours lancé, vérifiez votre navigateur, mais vous êtes à présent détaché.
 
 ## LDAP
-LDAP tourne automatiquement sur le docker, mais ne possède rien de plus que l'utilisateur `admin:admin`. Pour ajouter d'autres utilisateurs, lancez `/opt/run/add_users_ldap.sh`
-
+LDAP tourne automatiquement sur le docker, mais ne possède rien de plus que l'utilisateur `admin:admin`. Pour ajouter d'autres utilisateurs, lancez `/opt/run/add_users_ldap.sh`.
+Pour lister les utilisateurs, faites
+```
+ldapsearch -x -w admin -D cn=admin,dc=libertempo -b "ou=People,dc=libertempo"
+```

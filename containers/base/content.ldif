@@ -1,7 +1,3 @@
-dn: ou=People,dc=libertempo
-objectClass: organizationalUnit
-ou: People
-
 dn: uid=hr,ou=People,dc=libertempo
 objectClass: inetOrgPerson
 objectClass: posixAccount
