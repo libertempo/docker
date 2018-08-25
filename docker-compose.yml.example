@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  #
+  # MySQL
+  #
+  mysql:
+    cpu_shares: 128
+    mem_limit: 512m
+    build: ./containers/mysql/
+    container_name: lt-mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  #
+  # LDAP
+  #
+
+  #
+  # Apache + php
+  #
+  libertempo:
+    cpu_shares: 128
+    mem_limit: 512m
+    build: ./containers/apache/
+    container_name: lt-base
+    ports:
+      - 80:80
+    links:
+      - mysql:mysql
+    depends_on:
+      - mysql
+    volumes:
+      - {path/vers/libertempo/web}:/var/www/web
+      - {path/vers/libertempo/api}:/var/www/api
+
+
