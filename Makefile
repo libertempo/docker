@@ -24,4 +24,4 @@ build: down
 
 install:
 	@echo "Installation de l'application…"
-	docker exec -w /var/www/web lt-base bash -c "make nom_instance=http://libertempo/ install"
+	docker exec -w /var/www/web -u libertempo lt-base bash -c "make nom_instance=http://libertempo/ install"
