@@ -11,7 +11,7 @@ start:
 	docker-compose start
 
 attach:
-	docker exec -it lt-base bash
+	docker exec -it -u libertempo lt-base bash
 
 stop:
 	docker-compose stop
