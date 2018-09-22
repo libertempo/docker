@@ -3,12 +3,12 @@ FROM php:7.0-apache
 MAINTAINER Prytoegrian <prytoegrian@protonmail.com>
 
 RUN apt update \
-&& apt install -y -q --no-install-recommends sudo vim locate mysql-client gettext ldap-utils libldap2-dev locales gnupg git && \
+&& apt install -y -q --no-install-recommends sudo vim locate mysql-client gettext ldap-utils libldap2-dev locales gnupg git unzip zlib1g-dev && \
 curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
 apt install -y nodejs
 
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
-    docker-php-ext-install -j$(nproc) mysqli gettext pdo_mysql ldap
+    docker-php-ext-install -j$(nproc) mysqli gettext pdo_mysql ldap zip
 
 COPY ./sites/* /etc/apache2/sites-available/
 RUN a2enmod rewrite && \
@@ -36,7 +36,9 @@ RUN chmod +x /opt/run/add_users_ldap.sh
 ## Utilisateur de travail (manipulation composer, etc)
 RUN adduser --disabled-password --gecos '' libertempo && \
     adduser libertempo sudo && \
-    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+    usermod -u #UID# libertempo && \
+    groupmod -g #GID# libertempo
 #
 # Misc
 #COPY ./config/php/xdebug.ini /etc/php/mods-available/

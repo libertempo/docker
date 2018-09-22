@@ -20,8 +20,9 @@ down:
 	docker-compose down
 
 build: down
+	@sed "s|#UID#|$(shell id -u)|;s|#GID#|$(shell id -u)|" ./containers/base/Dockerfile.example > ./containers/base/Dockerfile
 	docker-compose up --build -d
 
 install:
 	@echo "Installation de l'application…"
-	docker exec -w /var/www/web -u libertempo lt-base bash -c "make nom_instance=http://libertempo/ install"
+	docker exec -w /var/www/web -u libertempo lt-base bash -c "make nom_instance=http://libertempo/ reinstall"
