@@ -1,0 +1,60 @@
+version: '2'
+
+services:
+  #
+  # MySQL
+  #
+  mysql:
+    cpu_shares: 128
+    mem_limit: 512m
+    restart: unless-stopped
+    build: ./containers/mysql/
+    image: libertempo/mysql
+    container_name: lt-mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  #
+  # LDAP
+  #
+  ldap:
+    cpu_shares: 128
+    mem_limit: 512m
+    container_name: lt-ldap
+    image: actualys/ldap
+    ports:
+      - 389:389
+      - 636:636
+    environment:
+      LDAP_DOMAIN: libertempo
+      LDAP_PASSWORD: admin
+
+  #
+  # Apache + php
+  #
+  libertempo:
+    cpu_shares: 128
+    mem_limit: 512m
+    restart: unless-stopped
+    build: ./containers/base/
+    image: libertempo/libertempo
+    container_name: lt-base
+    dns: 8.8.8.8
+    dns_opt:
+      - use-vc
+      - no-tld-query
+    ports:
+      - 80:80
+    links:
+      - mysql:mysql
+      - ldap:ldap
+    depends_on:
+      - mysql
+      - ldap
+    volumes:
+      - {path/vers/libertempo/web}:/var/www/web
+      - {path/vers/libertempo/api}:/var/www/api
+
+
