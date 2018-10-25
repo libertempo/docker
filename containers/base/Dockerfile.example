@@ -1,6 +1,5 @@
 # Doc : https://hub.docker.com/_/php/
 FROM php:7.0-apache
-MAINTAINER Prytoegrian <prytoegrian@protonmail.com>
 
 RUN apt update \
 && apt install -y -q --no-install-recommends sudo vim locate mysql-client gettext ldap-utils libldap2-dev locales gnupg git unzip zlib1g-dev && \
