@@ -38,6 +38,10 @@ RUN adduser --disabled-password --gecos '' libertempo && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     usermod -u #UID# libertempo && \
     groupmod -g #GID# libertempo
+
+# Colored prompt
+RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;33m\]\w\[\033[00m\]\$ '" >> /home/libertempo/.bashrc
+
 #
 # Misc
 #COPY ./config/php/xdebug.ini /etc/php/mods-available/
