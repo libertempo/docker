@@ -3,7 +3,7 @@
 [![BCH compliance](https://bettercodehub.com/edge/badge/Libertempo/libertempo-docker?branch=master)](https://bettercodehub.com/)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ae69b553f18f48cfb7e56f79f686ce50)](https://www.codacy.com/app/Libertempo/libertempo-docker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Libertempo/libertempo-docker&amp;utm_campaign=Badge_Grade)
 
-*Cette branche est dédiée à la mise en place des applications libertempo sous PHP 7.0. Pour d'autres versions, consultez les [autres branches](https://github.com/libertempo/docker/branches)*.
+*Cette branche est dédiée à la mise en place des applications libertempo sous PHP 7.1. Pour d'autres versions, consultez les [autres branches](https://github.com/libertempo/docker/branches)*.
 
 Ce readme n'a pas pour objectif de vous apprendre ce qu'est docker, la [doc officielle](https://docs.docker.com/) le fait bien mieux.
 
