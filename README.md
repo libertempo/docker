@@ -1,4 +1,4 @@
-# Dockerisation des appplications Libertempo
+# Dockerisation des applications Libertempo
 
 [![BCH compliance](https://bettercodehub.com/edge/badge/Libertempo/libertempo-docker?branch=master)](https://bettercodehub.com/)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ae69b553f18f48cfb7e56f79f686ce50)](https://www.codacy.com/app/Libertempo/libertempo-docker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Libertempo/libertempo-docker&amp;utm_campaign=Badge_Grade)
@@ -9,7 +9,7 @@ Ce readme n'a pas pour objectif de vous apprendre ce qu'est docker, la [doc offi
 
 Par contre, il va vous permettre, en moins de 10 minutes (lecture comprise, no joke), d'avoir une instance de libertempo dockerisée. Il faut pour cela quelques prérequis :
 * Docker et docker-compose installés sur votre poste
-* Source de [Libertempo](https://github.com/wouldsmina/Libertempo) sur votre poste
+* Source de [Libertempo](https://github.com/libertempo/web) sur votre poste
 * Source de ce repo sur votre poste
 * Dans certains cas `apparmor` et `cgroup-lite` ([voir ticket](https://github.com/Prytoegrian/libertempo-docker/issues/5))
 
@@ -71,8 +71,9 @@ make attach
 Pour sortir du système dockerisé, faites `Ctrl-P Ctrl-Q` et vous voilà dehors. Tout simplement. Docker est toujours lancé, vérifiez votre navigateur, mais vous êtes à présent détaché.
 
 ## LDAP
-LDAP tourne automatiquement sur le docker, mais ne possède rien de plus que l'utilisateur `admin:admin`. Pour ajouter d'autres utilisateurs, lancez `/opt/run/add_users_ldap.sh`.
-Pour lister les utilisateurs, faites
+LDAP tourne automatiquement sur le docker et l'utilisateur `admin:admin` seulement peut se connecter au serveur. Les utilisateurs disponibles dans le serveur sont listés dans https://github.com/libertempo/docker/blob/master/containers/base/content.ldif.
+
+Au besoin, pour lister les utilisateurs, faites :
 ```
 ldapsearch -x -w admin -D cn=admin,dc=libertempo -b "ou=People,dc=libertempo"
 ```
