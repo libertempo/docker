@@ -1,7 +1,7 @@
 # Dockerisation des applications Libertempo
 
-[![BCH compliance](https://bettercodehub.com/edge/badge/Libertempo/libertempo-docker?branch=master)](https://bettercodehub.com/)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ae69b553f18f48cfb7e56f79f686ce50)](https://www.codacy.com/app/Libertempo/libertempo-docker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Libertempo/libertempo-docker&amp;utm_campaign=Badge_Grade)
+[![BCH compliance](https://bettercodehub.com/edge/badge/libertempo/docker?branch=php70)](https://bettercodehub.com/)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ae69b553f18f48cfb7e56f79f686ce50)](https://www.codacy.com/app/libertempo/docker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=libertempo/docker&amp;utm_campaign=Badge_Grade)
 
 *Cette branche est dédiée à la mise en place des applications libertempo sous PHP 7.0. Pour d'autres versions, consultez les [autres branches](https://github.com/libertempo/docker/branches)*.
 
@@ -11,7 +11,7 @@ Par contre, il va vous permettre, en moins de 10 minutes (lecture comprise, no j
 * Docker et docker-compose installés sur votre poste
 * Source de [Libertempo](https://github.com/libertempo/web) sur votre poste
 * Source de ce repo sur votre poste
-* Dans certains cas `apparmor` et `cgroup-lite` ([voir ticket](https://github.com/Prytoegrian/libertempo-docker/issues/5))
+* Dans certains cas `apparmor` et `cgroup-lite` ([voir ticket](https://github.com/libertempo/docker/issues/5))
 
 Vous avez tout cela, alors c'est parti !
 
@@ -71,7 +71,7 @@ make attach
 Pour sortir du système dockerisé, faites `Ctrl-P Ctrl-Q` et vous voilà dehors. Tout simplement. Docker est toujours lancé, vérifiez votre navigateur, mais vous êtes à présent détaché.
 
 ## LDAP
-LDAP tourne automatiquement sur le docker et l'utilisateur `admin:admin` seulement peut se connecter au serveur. Les utilisateurs disponibles dans le serveur sont listés dans https://github.com/libertempo/docker/blob/master/containers/base/content.ldif.
+LDAP tourne automatiquement sur le docker et l'utilisateur `admin:admin` seulement peut se connecter au serveur. Les utilisateurs disponibles dans le serveur sont listés dans https://github.com/libertempo/docker/blob/php70/containers/base/content.ldif.
 
 Au besoin, pour lister les utilisateurs, faites :
 ```
