@@ -25,7 +25,7 @@ localhost libertempo
 Ensuite, vous devez préparer les sources pour créer un docker qui vous soit propre. Nous allons donc dire à docker de faire pointer les sources du site « Libertempo » en dehors de docker (comme un lien symbolique en somme).
 La véritable localisation des sources de Libertempo se trouvera sur votre poste, de tel sorte que vous puissez travailler sans avoir à entrer dans docker en permanence.
 
-Pour cela, copiez `docker-compose.yml.example` vers `docker-compose.yml` et modifiez la ligne du nouveau fichier `{path/vers/libertempo/web}`. Faites de même avec l'API, sinon supprimez la ligne.
+Pour cela, modifiez le fichier `docker-compose.yml.example` à la ligne `{path/vers/libertempo/web}`. Faites de même avec l'API, sinon supprimez la ligne.
 
 Chez moi, puisque mes sources de libertempo se trouvent dans `/home/Prytoegrian/tardis/libertempo/web`, la ligne ressemblera donc à
 ```bash
@@ -40,6 +40,8 @@ make build
 c'est lui qui va initialiser tout le serveur avec ses dépendances.
 
 Il s'agit d'une installation d'un système unix somme toute normale (les lignes ne devraient pas vous surprendre), basée sur les ordres fournis par le fichier `Dockerfile`, un équivalent d'un `makefile`.
+
+**NOTE**: Si le build échoue à cause d'une résolution DNS, pensez à adapter la règle 'FORWARD' de votre pare-feu.
 
 Enfin, la dernière étape :
 ```

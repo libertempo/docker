@@ -20,6 +20,7 @@ down:
 	docker-compose down
 
 build: down
+	cp docker-compose.yml.example docker-compose.yml
 	@sed "s|#UID#|$(shell id -u)|;s|#GID#|$(shell id -u)|" ./containers/base/Dockerfile.example > ./containers/base/Dockerfile
 	docker-compose up --build -d
 
