@@ -23,7 +23,7 @@ localhost libertempo
 ```
 
 Ensuite, vous devez préparer les sources pour créer un docker qui vous soit propre. Nous allons donc dire à docker de faire pointer les sources du site « Libertempo » en dehors de docker (comme un lien symbolique en somme).
-La véritable localisation des sources de Libertempo se trouvera sur votre poste, de tel sorte que vous puissez travailler sans avoir à entrer dans docker en permanence.
+La véritable localisation des sources de Libertempo se trouvera sur votre poste, de telle sorte que vous puissiez travailler sans avoir à entrer dans docker en permanence.
 
 Pour cela, modifiez le fichier `docker-compose.yml.example` aux lignes `{id -u}` et `{id -g}`. Vous devez ici exécuter la commande `id` pour l'utilisateur de votre choix et mettre les valeurs retournées à la place.
 
@@ -55,7 +55,7 @@ Tadaaa ! Une application libertempo pleinement opérationnelle. Vous pouvez vous
 
 ## Coupure et démarrage de l'application
 
-Une fois l'application installée, son cycle de vie normale se résume en
+Une fois l'application installée, son cycle de vie normal se résume en
 ```
 make start
 ```
