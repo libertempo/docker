@@ -14,8 +14,8 @@ RUN a2enmod rewrite && \
     a2ensite 001-libertempo.conf && \
     a2ensite 002-libertempo-api.conf
 
-RUN pecl install xdebug-2.6.0 \
-    && docker-php-ext-enable xdebug
+#RUN pecl install xdebug-2.6.0 \
+#    && docker-php-ext-enable xdebug
 
 # Configuration
 COPY ./my.cnf /etc/mysql/
@@ -33,11 +33,13 @@ COPY ./add_users_ldap.sh /opt/run/
 RUN chmod +x /opt/run/add_users_ldap.sh
 
 ## Utilisateur de travail (manipulation composer, etc)
+ARG UID
+ARG GID
 RUN adduser --disabled-password --gecos '' libertempo && \
     adduser libertempo sudo && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-    usermod -u #UID# libertempo && \
-    groupmod -g #GID# libertempo
+    usermod -u $UID libertempo && \
+    groupmod -g $GID libertempo
 
 # Colored prompt
 RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;33m\]\w\[\033[00m\]\$ '" >> /home/libertempo/.bashrc
