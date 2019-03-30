@@ -1,12 +1,14 @@
 # Doc : https://hub.docker.com/_/php/
 FROM php:7.1-apache
 
-RUN apt update \
-&& apt install -y -q --no-install-recommends sudo vim locate mysql-client gettext ldap-utils libldap2-dev locales gnupg git unzip zlib1g-dev && \
-curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-apt install -y nodejs
+RUN apt update && \
+    apt install -y -q --no-install-recommends sudo vim locate mysql-client gettext ldap-utils libldap2-dev locales gnupg git unzip zlib1g-dev && \
+    curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt install -y nodejs && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+RUN docker-php-ext-configure ldap --with-libdir="lib/x86_64-linux-gnu/" && \
     docker-php-ext-install -j$(nproc) mysqli gettext pdo_mysql ldap zip
 
 COPY ./sites/* /etc/apache2/sites-available/
@@ -42,7 +44,7 @@ RUN adduser --disabled-password --gecos '' libertempo && \
     groupmod -g $GID libertempo
 
 # Colored prompt
-RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;33m\]\w\[\033[00m\]\$ '" >> /home/libertempo/.bashrc
+RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;33m\]\\w\[\033[00m\]\$ '" >> /home/libertempo/.bashrc
 
 #
 # Misc

@@ -17,7 +17,7 @@ Vous avez tout cela, alors c'est parti !
 
 ## Configuration
 La première des étapes est d'associer une IP à votre application dans le fichier hosts :
-```
+```bash
 # /etc/hosts
 localhost libertempo
 ```
@@ -36,7 +36,7 @@ Chez moi, puisque mes sources de libertempo se trouvent dans `/home/Prytoegrian/
 
 ## Installation de l'application
 Une fois ceci fait, nous pouvons créer l'image de l'application Libertempo dockerisée. Exécutez donc le fichier d'installation :
-```
+```bash
 make build
 ```
 c'est lui qui va initialiser tout le serveur avec ses dépendances.
@@ -46,7 +46,7 @@ Il s'agit d'une installation d'un système unix somme toute normale (les lignes 
 **NOTE**: Si le build échoue à cause d'une résolution DNS, pensez à adapter la règle 'FORWARD' de votre pare-feu.
 
 Enfin, la dernière étape :
-```
+```bash
 make install
 ```
 (*Le serveur MySQL est un peu capricieux à démarrer. Si l'opération échoue, recommencez*)
@@ -56,28 +56,28 @@ Tadaaa ! Une application libertempo pleinement opérationnelle. Vous pouvez vous
 ## Coupure et démarrage de l'application
 
 Une fois l'application installée, son cycle de vie normal se résume en
-```
+```bash
 make start
 ```
 et
 
-```
+```bash
 make stop
 ```
 
 ## Maintenance
 
 Bien que non nécessaire à la vie de l'application, vous pourriez vouloir entrer dans le système dockerisé. Pour ce faire, saisissez :
-```
+```bash
 make attach
 ```
 
 Pour sortir du système dockerisé, faites `Ctrl-P Ctrl-Q` et vous voilà dehors. Tout simplement. Docker est toujours lancé, vérifiez votre navigateur, mais vous êtes à présent détaché.
 
 ## LDAP
-LDAP tourne automatiquement sur le docker et l'utilisateur `admin:admin` seulement peut se connecter au serveur. Les utilisateurs disponibles dans le serveur sont listés dans https://github.com/libertempo/docker/blob/master/containers/base/content.ldif.
+LDAP tourne automatiquement sur le docker et l'utilisateur `admin:admin` seulement peut se connecter au serveur. Les utilisateurs disponibles dans le serveur sont listés dans [le fichier dédié](https://github.com/libertempo/docker/blob/master/containers/base/content.ldif).
 
 Au besoin, pour lister les utilisateurs, faites :
-```
+```bash
 ldapsearch -x -w admin -D cn=admin,dc=libertempo -b "ou=People,dc=libertempo"
 ```
