@@ -1,7 +1,7 @@
 # Dockerisation des applications Libertempo
 
-[![BCH compliance](https://bettercodehub.com/edge/badge/Libertempo/libertempo-docker?branch=master)](https://bettercodehub.com/)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ae69b553f18f48cfb7e56f79f686ce50)](https://www.codacy.com/app/Libertempo/libertempo-docker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Libertempo/libertempo-docker&amp;utm_campaign=Badge_Grade)
+[![BCH compliance](https://bettercodehub.com/edge/badge/libertempo/docker?branch=php71)](https://bettercodehub.com/)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/aada840da70941398538a1ec70950e16)](https://www.codacy.com/app/libertempo/docker)
 
 *Cette branche est dédiée à la mise en place des applications libertempo sous PHP 7.1. Pour d'autres versions, consultez les [autres branches](https://github.com/libertempo/docker/branches)*.
 
