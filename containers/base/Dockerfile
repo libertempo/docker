@@ -9,7 +9,7 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure ldap --with-libdir="lib/x86_64-linux-gnu/" && \
-    docker-php-ext-install -j$(nproc) mysqli gettext pdo_mysql ldap zip
+    docker-php-ext-install -j"$(nproc)" mysqli gettext pdo_mysql ldap zip
 
 COPY ./sites/* /etc/apache2/sites-available/
 RUN a2enmod rewrite && \
