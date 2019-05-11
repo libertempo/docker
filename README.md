@@ -17,6 +17,7 @@ Par contre, il va vous permettre, en moins de 10 minutes (lecture comprise, no j
 Vous avez tout cela, alors c'est parti !
 
 ## Configuration
+
 La première des étapes est d'associer une IP à votre application dans le fichier hosts :
 
 ```bash
@@ -86,6 +87,7 @@ make attach
 Pour sortir du système dockerisé, faites `Ctrl-P Ctrl-Q` et vous voilà dehors. Tout simplement. Docker est toujours lancé, vérifiez votre navigateur, mais vous êtes à présent détaché.
 
 ## LDAP
+
 LDAP tourne automatiquement sur le docker et l'utilisateur `admin:admin` seulement peut se connecter au serveur. Les utilisateurs disponibles dans le serveur sont listés dans [le fichier dédié](https://github.com/libertempo/docker/blob/master/containers/base/content.ldif).
 
 Au besoin, pour lister les utilisateurs, faites :
