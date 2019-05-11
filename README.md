@@ -32,6 +32,7 @@ Pour cela, modifiez le fichier `docker-compose.yml.example` aux lignes `{id -u}`
 Puis, changez la ligne `{path/vers/libertempo/web}`. Faites de même avec l'API, sinon supprimez la ligne.
 
 Chez moi, puisque mes sources de libertempo se trouvent dans `/home/Prytoegrian/tardis/libertempo/web`, la ligne ressemblera donc à
+
 ```bash
     - /home/Prytoegrian/tardis/libertempo/web}:/var/www/web
 ```
@@ -51,6 +52,7 @@ Il s'agit d'une installation d'un système unix somme toute normale (les lignes 
 **NOTE**: Si le build échoue à cause d'une résolution DNS, pensez à adapter la règle 'FORWARD' de votre pare-feu.
 
 Enfin, la dernière étape :
+
 ```bash
 make install
 ```
@@ -62,6 +64,7 @@ Tadaaa ! Une application libertempo pleinement opérationnelle. Vous pouvez vous
 ## Coupure et démarrage de l'application
 
 Une fois l'application installée, son cycle de vie normal se résume en
+
 ```bash
 make start
 ```
@@ -75,6 +78,7 @@ make stop
 ## Maintenance
 
 Bien que non nécessaire à la vie de l'application, vous pourriez vouloir entrer dans le système dockerisé. Pour ce faire, saisissez :
+
 ```bash
 make attach
 ```

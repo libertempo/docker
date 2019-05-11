@@ -1,5 +1,5 @@
 # Doc : https://hub.docker.com/_/php/
-FROM php:7.1-apache
+FROM php:7.1-apache-stretch
 
 RUN apt update && \
     apt install -y -q --no-install-recommends sudo vim locate mysql-client gettext ldap-utils libldap2-dev locales gnupg git unzip zlib1g-dev && \
@@ -29,11 +29,6 @@ ENV LANG fr_FR.UTF-8
 ENV LANGUAGE fr_FR:fr
 #ENV LC_ALL en_US.UTF-8
 
-# LDAP
-COPY ./content.ldif /opt/run/
-COPY ./add_users_ldap.sh /opt/run/
-RUN chmod +x /opt/run/add_users_ldap.sh
-
 ## Utilisateur de travail (manipulation composer, etc)
 ARG UID
 ARG GID
@@ -51,5 +46,9 @@ RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\
 #COPY ./config/php/xdebug.ini /etc/php/mods-available/
 #
 #
+# LDAP
+COPY ./content.ldif /opt/run/
+COPY ./add_users_ldap.sh /opt/run/
+RUN chmod +x /opt/run/add_users_ldap.sh
 #USER libertempo
 WORKDIR /var/www

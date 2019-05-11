@@ -23,6 +23,9 @@ build: down
 	cp docker-compose.yml.example docker-compose.yml
 	docker-compose up --build -d
 
+start-ldap:
+	docker start lt-ldap
+
 install:
 	@echo "Installation de l'application…"
 	docker exec -w /var/www/web -u libertempo lt-base bash -c "make nom_instance=http://libertempo/ install"
