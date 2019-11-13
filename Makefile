@@ -19,9 +19,11 @@ stop:
 down:
 	docker-compose down
 
-build: down
-	cp docker-compose.yml.example docker-compose.yml
+build:
+	cp .env.dist .env
 	docker-compose up --build -d
+
+rebuild: down build
 
 start-ldap:
 	docker start lt-ldap

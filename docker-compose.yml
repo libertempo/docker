@@ -44,8 +44,8 @@ services:
       context: ./containers/base
       dockerfile: ./Dockerfile
       args:
-      - UID={id -u}
-      - GID={id -g}
+      - UID=${UID}
+      - GID=${GID}
     image: libertempo/libertempo
     container_name: lt-base
     dns: 8.8.8.8
@@ -61,7 +61,5 @@ services:
       - mysql
       - ldap
     volumes:
-      - {path/vers/libertempo/web}:/var/www/web
-      - {path/vers/libertempo/api}:/var/www/api
-
-
+      - ${PATH_WEB}:/var/www/web
+      - ${PATH_API}:/var/www/api
