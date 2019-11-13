@@ -10,7 +10,6 @@ services:
     restart: unless-stopped
     build:
       context: ./containers/mysql
-      dockerfile: ./Dockerfile
     image: libertempo/mysql
     container_name: lt-mysql
     ports:
@@ -34,32 +33,65 @@ services:
       LDAP_PASSWORD: admin
 
   #
-  # Apache + php
+  # Apache
   #
-  libertempo:
+  httpd:
   #  cpu_shares: 128
   #  mem_limit: 512m
     restart: unless-stopped
     build:
-      context: ./containers/base
-      dockerfile: ./Dockerfile
+      context: ./containers/httpd
       args:
       - UID=${UID}
       - GID=${GID}
-    image: libertempo/libertempo
-    container_name: lt-base
+    image: libertempo/httpd
+    container_name: lt-httpd
     dns: 8.8.8.8
   #  dns_opt:
   #    - use-vc
   #    - no-tld-query
     ports:
-      - 80:80
+      - ${APACHE_EXPOSED_PORT}:80
     links:
       - mysql:mysql
       - ldap:ldap
     depends_on:
       - mysql
       - ldap
+  #
+  # PHP
+  #
+  php:
+  #  cpu_shares: 128
+  #  mem_limit: 512m
+    restart: unless-stopped
+    build:
+      context: ./containers/php
+      args:
+        - UID=${UID}
+        - GID=${GID}
+        - WEB_USER=${WEB_USER}
+        - WEB_GROUP=${WEB_GROUP}
+        - PHP_ROOT_DIR=${PHP_ROOT_DIR}
+    image: libertempo/php
+    container_name: lt-php
+    dns: 8.8.8.8
+  #  dns_opt:
+  #    - use-vc
+  #    - no-tld-query
+    depends_on:
+      - mysql
+      - ldap
+      - httpd
     volumes:
-      - ${PATH_WEB}:/var/www/web
-      - ${PATH_API}:/var/www/api
+      - ${PATH_WEB}:${PHP_APP_DIR}/web
+      - ${PATH_API}:${PHP_APP_DIR}/api
+    environment:
+      - PHP_ROOT_DIR=${PHP_ROOT_DIR}
+      - APACHE_IP=${APACHE_IP}
+      - APACHE_EXPOSED_PORT=${APACHE_EXPOSED_PORT}
+      - WEB_USER=${WEB_USER}
+      - WEB_GROUP=${WEB_GROUP}
+      - MYSQL_IP=${MYSQL_IP}
+      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
