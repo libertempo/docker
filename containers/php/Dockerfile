@@ -30,3 +30,11 @@ RUN sed -i -e 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen && \
 ENV LANG fr_FR.UTF-8
 ENV LANGUAGE fr_FR:fr
 #ENV LC_ALL en_US.UTF-8
+
+# Configuration
+COPY ./ldap.conf /etc/ldap/
+
+# LDAP
+COPY ./content.ldif /opt/run/
+COPY ./add_users_ldap.sh /opt/run/
+RUN chmod +x /opt/run/add_users_ldap.sh
