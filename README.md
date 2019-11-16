@@ -35,6 +35,7 @@ Pour cela, modifiez le fichier `.env.dist`. Vous devez ici exécuter la commande
 Une fois ceci fait, nous pouvons créer l'image de l'application Libertempo dockerisée. Exécutez donc le fichier d'installation :
 
 ```bash
+make set-env
 make build
 ```
 

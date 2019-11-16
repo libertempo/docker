@@ -19,8 +19,10 @@ stop:
 down:
 	docker-compose down
 
-build:
+set-env:
 	cp .env.dist .env
+
+build:
 	docker-compose up --build -d
 
 rebuild: down build
