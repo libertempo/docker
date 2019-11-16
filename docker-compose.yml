@@ -10,6 +10,11 @@ services:
     restart: unless-stopped
     build:
       context: ./containers/mysql
+      args:
+        - UID=${UID}
+        - GID=${GID}
+        - MYSQL_CONTAINER_USER=${MYSQL_CONTAINER_USER}
+        - MYSQL_CONTAINER_GROUP=${MYSQL_CONTAINER_GROUP}
     image: libertempo/mysql
     container_name: lt-mysql
     ports:
@@ -18,7 +23,8 @@ services:
         public_net2:
             ipv4_address: ${MYSQL_IP}
     environment:
-      MYSQL_ROOT_PASSWORD: root
+        - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 
   #
   # LDAP
@@ -62,12 +68,9 @@ services:
     links:
       - mysql:mysql
       - ldap:ldap
-    depends_on:
-      - mysql
-      - ldap
     networks:
-        public_net2:
-            ipv4_address: ${APACHE_IP}
+       public_net2:
+           ipv4_address: ${APACHE_IP}
     environment:
         - APACHE_EXPOSED_PORT=${APACHE_EXPOSED_PORT}
         - APACHE_ROOT_DIR=${APACHE_ROOT_DIR}
@@ -106,7 +109,7 @@ services:
             ipv4_address: ${PHP_IP}
     volumes:
       - ${PATH_WEB}:${PHP_APP_DIR}/web
-      - ${PATH_API}:${PHP_APP_DIR}/api
+      - ${PATH_API}:${PHP_APP_DIR}/htdocs/api
     environment:
       - PHP_ROOT_DIR=${PHP_ROOT_DIR}
       - APACHE_IP=${APACHE_IP}
