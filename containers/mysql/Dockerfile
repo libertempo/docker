@@ -7,8 +7,9 @@ ARG MYSQL_CONTAINER_GROUP
   
 #RUN sed -i "s/#log-error/log-error/g" /etc/mysql/mysql.conf.d/mysqld.cnf
    
-#RUN usermod -u ${UID} ${MYSQL_CONTAINER_USER} \
-#    && groupmod -g ${GID} ${MYSQL_CONTAINER_GROUP}
-## Configuration
-#COPY ./my.cnf /etc/mysql/
-#RUN mkdir /var/lib/mysql-files
+RUN usermod -u ${UID} ${MYSQL_CONTAINER_USER} \
+    && groupmod -g ${GID} ${MYSQL_CONTAINER_GROUP}
+
+# Configuration
+COPY ./my.cnf /etc/mysql/
+RUN mkdir /var/lib/mysql-files
