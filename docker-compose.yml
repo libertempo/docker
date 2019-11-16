@@ -23,12 +23,14 @@ services:
         public_net2:
             ipv4_address: ${MYSQL_IP}
     environment:
-        - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_CONTAINER_USER=${MYSQL_CONTAINER_USER}
+        - MYSQL_CONTAINER_GROUP=${MYSQL_CONTAINER_GROUP}
 
   #
   # LDAP
   #
+  # Create a mini ldap client container for boostraping data in the server
   ldap:
   #  cpu_shares: 128
   #  mem_limit: 512m
@@ -55,7 +57,6 @@ services:
         - GID=${GID}
         - WEB_USER=${WEB_USER}
         - WEB_GROUP=${WEB_GROUP}
-        - PHP_ROOT_DIR=${PHP_ROOT_DIR}
         - APACHE_ROOT_DIR=${APACHE_ROOT_DIR}
     image: libertempo/httpd
     container_name: lt-httpd
@@ -68,6 +69,8 @@ services:
     links:
       - mysql:mysql
       - ldap:ldap
+    volumes:
+      - ${PATH_WEB}:${APACHE_ROOT_DIR}/htdocs/web
     networks:
        public_net2:
            ipv4_address: ${APACHE_IP}
@@ -109,7 +112,9 @@ services:
             ipv4_address: ${PHP_IP}
     volumes:
       - ${PATH_WEB}:${PHP_APP_DIR}/web
-      - ${PATH_API}:${PHP_APP_DIR}/htdocs/api
+      - ${PATH_API}:${PHP_APP_DIR}/api
+    extra_hosts:
+        - "libertemp:${APACHE_IP}"
     environment:
       - PHP_ROOT_DIR=${PHP_ROOT_DIR}
       - APACHE_IP=${APACHE_IP}
