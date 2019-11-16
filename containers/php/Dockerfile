@@ -16,7 +16,7 @@ RUN pecl install xdebug-2.6.0 && \
     docker-php-ext-enable xdebug
    
 RUN docker-php-ext-configure ldap --with-libdir="lib/x86_64-linux-gnu/" && \
-    docker-php-ext-install -j"$(nproc)" mysqli gettext pdo_mysql ldap zip
+    docker-php-ext-install -j"$(nproc)" mysqli gettext pdo_mysql ldap zip calendar
 
 COPY www.conf ${PHP_ROOT_DIR}/php-fpm.d/www.conf
     
