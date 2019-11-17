@@ -10,9 +10,11 @@ COPY httpd-vhosts.conf ${APACHE_ROOT_DIR}/conf/extra/httpd-vhosts.conf
 COPY httpd.conf ${APACHE_ROOT_DIR}/conf/httpd.conf
 
 RUN apk add --no-cache shadow && \
-    rm -rf /var/cache/apk/* && \
     mkdir -p ${APACHE_ROOT_DIR}/htdocs/api/Public && \
     usermod -u ${UID} ${WEB_USER} && \
     groupmod -g ${GID} ${WEB_GROUP} && \
-    chgrp -R ${WEB_GROUP} ${APACHE_ROOT_DIR}
+    chgrp -R ${WEB_GROUP} ${APACHE_ROOT_DIR} && \
+    apk del shadow && \
+    rm -rf /var/cache/apk/*
+
 

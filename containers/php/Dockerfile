@@ -28,11 +28,4 @@ ENV LANG fr_FR.UTF-8
 ENV LANGUAGE fr_FR:fr
 #ENV LC_ALL en_US.UTF-8
 
-# Configuration
-# TO DROP
-COPY ./ldap.conf /etc/ldap/
-COPY ./content.ldif /opt/run/
-COPY ./add_users_ldap.sh /opt/run/
-RUN chmod +x /opt/run/add_users_ldap.sh
-
 WORKDIR ${PHP_APP_DIR} 

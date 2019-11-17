@@ -17,19 +17,19 @@ stop:
 	docker-compose stop
 
 down:
-	docker-compose down
+	docker-compose --compatibility down
 
 set-env:
 	cp .env.dist .env
 
 build:
-	docker-compose up --build -d
+	docker-compose --compatibility up --build -d
 
 rebuild: down build
 
-start-ldap:
-	docker start lt-ldap
+ldap-add-user:
+	docker exec lt-ldap /opt/run/add_users_ldap.sh
 
 install:
 	@echo "Installation de l'application…"
-	docker exec -w /var/www/web -u libertempo lt-base bash -c "make nom_instance=http://libertempo/ install"
+	docker exec -w /srv/app/web lt-php bash -c "make nom_instance=http://libertempo/ install"

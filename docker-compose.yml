@@ -17,15 +17,19 @@ services:
         - MYSQL_CONTAINER_GROUP=${MYSQL_CONTAINER_GROUP}
     image: libertempo/mysql
     container_name: lt-mysql
-    ports:
-      - 3306:3306
+    expose:
+      - 3306
     networks:
-        public_net2:
-            ipv4_address: ${MYSQL_IP}
+        - libertempo
     environment:
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         - MYSQL_CONTAINER_USER=${MYSQL_CONTAINER_USER}
         - MYSQL_CONTAINER_GROUP=${MYSQL_CONTAINER_GROUP}
+    deploy:
+        resources:
+            limits:
+                cpus: '0.5'
+                memory: 1G
 
   #
   # LDAP
@@ -35,13 +39,22 @@ services:
   #  cpu_shares: 128
   #  mem_limit: 512m
     container_name: lt-ldap
-    image: actualys/ldap:1.1
-    ports:
-      - 389:389
-      - 636:636
+    image: libertempo/ldap
+    build:
+      context: ./containers/ldap
+    networks:
+        - libertempo
+    expose:
+      - 389
+      - 636
     environment:
       LDAP_DOMAIN: libertempo
       LDAP_PASSWORD: admin
+    deploy:
+        resources:
+            limits:
+                cpus: '0.5'
+                memory: 1G
 
   #
   # Apache
@@ -66,21 +79,22 @@ services:
   #   - no-tld-query
     ports:
       - ${APACHE_EXPOSED_PORT}:80
-    links:
-      - mysql:mysql
-      - ldap:ldap
     volumes:
       - ${PATH_WEB}:${APACHE_ROOT_DIR}/htdocs/web
     networks:
-       public_net2:
+       libertempo:
            ipv4_address: ${APACHE_IP}
     environment:
         - APACHE_EXPOSED_PORT=${APACHE_EXPOSED_PORT}
         - APACHE_ROOT_DIR=${APACHE_ROOT_DIR}
-        - PHP_IP=${PHP_IP}
         - PHP_APP_DIR=${PHP_APP_DIR}
         - WEB_USER=${WEB_USER}
         - WEB_GROUP=${WEB_GROUP}
+    deploy:
+        resources:
+            limits:
+                cpus: '0.5'
+                memory: 50M
   #
   # PHP
   #
@@ -108,8 +122,7 @@ services:
       - ldap
       - httpd
     networks:
-        public_net2:
-            ipv4_address: ${PHP_IP}
+        - libertempo
     volumes:
       - ${PATH_WEB}:${PHP_APP_DIR}/web
       - ${PATH_API}:${PHP_APP_DIR}/api
@@ -118,15 +131,17 @@ services:
     environment:
       - PHP_ROOT_DIR=${PHP_ROOT_DIR}
       - APACHE_IP=${APACHE_IP}
-      - APACHE_EXPOSED_PORT=${APACHE_EXPOSED_PORT}
       - WEB_USER=${WEB_USER}
       - WEB_GROUP=${WEB_GROUP}
-      - MYSQL_IP=${MYSQL_IP}
-      - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    deploy:
+        resources:
+            limits:
+                cpus: '0.5'
+                memory: 50M
 
 networks:
-    public_net2:
+    libertempo:
         driver: bridge
         ipam:
             driver: default
