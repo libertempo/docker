@@ -9,7 +9,7 @@ ARG PHP_ROOT_DIR
 ARG PHP_APP_DIR
 
 # PHPIZE_DEPS=autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c
-RUN apk add --no-cache unzip $PHPIZE_DEPS npm libintl openldap-dev bash && \
+RUN apk add --no-cache unzip $PHPIZE_DEPS npm libintl openldap-clients openldap-dev bash && \
     apk add --no-cache -t builder gettext-dev shadow libzip-dev && \
     docker-php-ext-install -j"$(nproc)" ldap mysqli gettext pdo_mysql calendar && \
     pecl install xdebug-2.6.0 && \

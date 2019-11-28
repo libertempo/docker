@@ -9,7 +9,7 @@ services:
   #  mem_limit: 512m
     restart: unless-stopped
     build:
-      context: ./containers/mysql
+      context: ./mysql
       args:
         - UID=${UID}
         - GID=${GID}
@@ -41,7 +41,7 @@ services:
     container_name: lt-ldap
     image: libertempo/ldap
     build:
-      context: ./containers/ldap
+      context: ./ldap
     networks:
         - libertempo
     expose:
@@ -64,7 +64,7 @@ services:
   #  mem_limit: 512m
     restart: unless-stopped
     build:
-      context: ./containers/httpd
+      context: ./httpd
       args:
         - UID=${UID}
         - GID=${GID}
@@ -102,7 +102,7 @@ services:
   #  mem_limit: 512m
     restart: unless-stopped
     build:
-      context: ./containers/php
+      context: ./php
       args:
         - UID=${UID}
         - GID=${GID}
@@ -133,7 +133,7 @@ services:
         resources:
             limits:
                 cpus: '0.5'
-                memory: 50M
+                memory: 150M
 
 networks:
     libertempo:
