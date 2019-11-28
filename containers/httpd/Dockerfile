@@ -16,5 +16,3 @@ RUN apk add --no-cache shadow && \
     chgrp -R ${WEB_GROUP} ${APACHE_ROOT_DIR} && \
     apk del shadow && \
     rm -rf /var/cache/apk/*
-
-

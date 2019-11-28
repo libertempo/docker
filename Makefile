@@ -1,4 +1,8 @@
 .DEFAULT_GOAL := start
+APACHE_IP = $(shell docker inspect --format '{{ .NetworkSettings.Networks.docker_libertempo.IPAddress }}' lt-httpd)
+PHP_APP_DIR = /srv/app
+NOM_INSTANCE = libertempo
+WEB_USER = www-data
 
 clean:
 	docker system prune -f
@@ -30,6 +34,8 @@ rebuild: down build
 ldap-add-user:
 	docker exec lt-ldap /opt/run/add_users_ldap.sh
 
-install:
+install: start
 	@echo "Installation de l'application…"
-	docker exec -w /srv/app/web lt-php bash -c "make nom_instance=http://libertempo/ install"
+	@docker exec lt-php bash -c "echo '${APACHE_IP} ${NOM_INSTANCE}' >> /etc/hosts"
+	@echo "Please run make autoinstall..."
+	@docker exec -ti -w ${PHP_APP_DIR}/web -u ${WEB_USER} lt-php bash
