@@ -21,6 +21,7 @@ RUN apk add --no-cache unzip $PHPIZE_DEPS npm libintl openldap-clients openldap-
     rm -rf /var/cache/apk/*
 
 COPY www.conf ${PHP_ROOT_DIR}/php-fpm.d/www.conf
+COPY ./ldap.conf /etc/openldap/
 
 # Set the locale
 #RUN sed -i -e 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen && \
