@@ -1,0 +1,139 @@
+version: '3'
+
+services:
+  #
+  # MySQL
+  #
+  mysql:
+  #  cpu_shares: 128
+  #  mem_limit: 512m
+    restart: unless-stopped
+    build:
+      context: ./mysql
+      args:
+        - UID=${UID}
+        - GID=${GID}
+        - MYSQL_CONTAINER_USER=${MYSQL_CONTAINER_USER}
+        - MYSQL_CONTAINER_GROUP=${MYSQL_CONTAINER_GROUP}
+    image: libertempo/mysql
+    container_name: lt-mysql
+    expose:
+      - 3306
+    networks:
+        - libertempo
+    environment:
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_CONTAINER_USER=${MYSQL_CONTAINER_USER}
+        - MYSQL_CONTAINER_GROUP=${MYSQL_CONTAINER_GROUP}
+    deploy:
+        resources:
+            limits:
+                cpus: '0.5'
+                memory: 1G
+
+  #
+  # LDAP
+  #
+  # Create a mini ldap client container for boostraping data in the server
+  ldap:
+  #  cpu_shares: 128
+  #  mem_limit: 512m
+    container_name: lt-ldap
+    image: libertempo/ldap
+    build:
+      context: ./ldap
+    networks:
+        - libertempo
+    expose:
+      - 389
+      - 636
+    environment:
+      LDAP_DOMAIN: libertempo
+      LDAP_PASSWORD: admin
+    deploy:
+        resources:
+            limits:
+                cpus: '0.5'
+                memory: 1G
+
+  #
+  # Apache
+  #
+  httpd:
+  #  cpu_shares: 128
+  #  mem_limit: 512m
+    restart: unless-stopped
+    build:
+      context: ./httpd
+      args:
+        - UID=${UID}
+        - GID=${GID}
+        - WEB_USER=${WEB_USER}
+        - WEB_GROUP=${WEB_GROUP}
+        - APACHE_ROOT_DIR=${APACHE_ROOT_DIR}
+    image: libertempo/httpd
+    container_name: lt-httpd
+  # dns: 8.8.8.8
+  # dns_opt:
+  #   - use-vc
+  #   - no-tld-query
+    ports:
+      - 80:80
+    volumes:
+      - ${PATH_WEB}:${APACHE_ROOT_DIR}/htdocs/web
+    networks:
+       - libertempo
+    environment:
+        - APACHE_EXPOSED_PORT=${APACHE_EXPOSED_PORT}
+        - APACHE_ROOT_DIR=${APACHE_ROOT_DIR}
+        - PHP_APP_DIR=${PHP_APP_DIR}
+        - WEB_USER=${WEB_USER}
+        - WEB_GROUP=${WEB_GROUP}
+    deploy:
+        resources:
+            limits:
+                cpus: '0.5'
+                memory: 50M
+  #
+  # PHP
+  #
+  php:
+  #  cpu_shares: 128
+  #  mem_limit: 512m
+    restart: unless-stopped
+    build:
+      context: ./php
+      args:
+        - UID=${UID}
+        - GID=${GID}
+        - WEB_USER=${WEB_USER}
+        - WEB_GROUP=${WEB_GROUP}
+        - PHP_ROOT_DIR=${PHP_ROOT_DIR}
+        - PHP_APP_DIR=${PHP_APP_DIR}
+    image: libertempo/php
+    container_name: lt-php
+    dns: 8.8.8.8
+  #  dns_opt:
+  #    - use-vc
+  #    - no-tld-query
+    depends_on:
+      - mysql
+      - ldap
+      - httpd
+    networks:
+        - libertempo
+    volumes:
+      - ${PATH_WEB}:${PHP_APP_DIR}/web
+      - ${PATH_API}:${PHP_APP_DIR}/api
+    environment:
+      - PHP_ROOT_DIR=${PHP_ROOT_DIR}
+      - WEB_USER=${WEB_USER}
+      - WEB_GROUP=${WEB_GROUP}
+    deploy:
+        resources:
+            limits:
+                cpus: '0.5'
+                memory: 150M
+
+networks:
+    libertempo:

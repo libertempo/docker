@@ -1,4 +1,8 @@
 .DEFAULT_GOAL := start
+APACHE_IP = $(shell docker inspect --format '{{ .NetworkSettings.Networks.docker_libertempo.IPAddress }}' lt-httpd)
+PHP_APP_DIR = /srv/app
+NOM_INSTANCE = libertempo
+WEB_USER = www-data
 
 clean:
 	docker system prune -f
@@ -10,22 +14,25 @@ clean:
 start:
 	docker-compose start
 
-attach:
-	docker exec -it -u libertempo lt-base bash
-
 stop:
 	docker-compose stop
 
 down:
-	docker-compose down
+	docker-compose --compatibility down
 
-build: down
-	cp docker-compose.yml.example docker-compose.yml
-	docker-compose up --build -d
+set-env:
+	cp .env.dist .env
 
-start-ldap:
-	docker start lt-ldap
+build:
+	docker-compose --compatibility up --build -d
 
-install:
+rebuild: down build
+
+ldap-add-user:
+	docker exec lt-ldap /opt/run/add_users_ldap.sh
+
+install: start
 	@echo "Installation de l'application…"
-	docker exec -w /var/www/web -u libertempo lt-base bash -c "make nom_instance=http://libertempo/ install"
+	@docker exec lt-php bash -c "echo '${APACHE_IP} ${NOM_INSTANCE}' >> /etc/hosts"
+	@echo "Please run make autoinstall..."
+	@docker exec -ti -w ${PHP_APP_DIR}/web -u ${WEB_USER} lt-php bash
